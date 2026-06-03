@@ -133,3 +133,7 @@ io.on("connection",(socket)=>{
 server.listen(
 process.env.PORT || 3000
 );
+
+app.get("/health",(req,res)=>{
+  res.status(200).send("OK");
+});
