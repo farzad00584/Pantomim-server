@@ -10,7 +10,13 @@ const io = new Server(server,{
     origin:"*"
   }
 });
-
+const words = [
+"سیب",
+"گربه",
+"ماشین",
+"فیل",
+"هواپیما"
+];
 const rooms = {};
 
 app.get("/",(req,res)=>{
@@ -27,8 +33,9 @@ io.on("connection",(socket)=>{
       Math.floor(1000 + Math.random()*9000).toString();
 
     rooms[roomCode] = {
-      players:[socket.id]
-    };
+  players:[socket.id],
+  totalRounds:8
+};
 
     socket.join(roomCode);
 
@@ -54,6 +61,20 @@ io.on("connection",(socket)=>{
 
     io.to(roomCode).emit("gameStart");
 
+    socket.on("setRounds",(data)=>{
+
+  const roomCode = data.room;
+  const rounds = data.rounds;
+
+  if(!rooms[roomCode]) return;
+
+  rooms[roomCode].totalRounds = rounds;
+
+  io.to(roomCode).emit(
+    "roundsSelected",
+    rounds
+  );
+      
   });
 
 });
