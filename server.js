@@ -21,6 +21,10 @@ const words = [
  "پیتزا"
 ];
 
+app.get("/",(req,res)=>{
+ res.send("Server Online");
+});
+
 io.on("connection",(socket)=>{
 
  console.log("Connected:",socket.id);
@@ -126,14 +130,8 @@ io.on("connection",(socket)=>{
 
 });
 
-app.get("/",(req,res)=>{
- res.send("Server Online");
-});
+const PORT = process.env.PORT || 3000;
 
-app.get("/health",(req,res)=>{
- res.status(200).send("OK");
+server.listen(PORT, () => {
+  console.log("Server running on port " + PORT);
 });
-
-server.listen(
-process.env.PORT || 3000
-);
