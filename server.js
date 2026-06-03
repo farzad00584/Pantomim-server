@@ -130,10 +130,14 @@ io.on("connection",(socket)=>{
 
 });
 
+app.get("/",(req,res)=>{
+ res.send("Server Online");
+});
+
+app.get("/health",(req,res)=>{
+ res.status(200).send("OK");
+});
+
 server.listen(
 process.env.PORT || 3000
 );
-
-app.get("/health",(req,res)=>{
-  res.status(200).send("OK");
-});
