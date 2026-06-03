@@ -21,10 +21,6 @@ const words = [
  "پیتزا"
 ];
 
-app.get("/",(req,res)=>{
- res.send("Server Online");
-});
-
 io.on("connection",(socket)=>{
 
  console.log("Connected:",socket.id);
